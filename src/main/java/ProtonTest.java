@@ -42,7 +42,7 @@ public class ProtonTest {
     public void loginMail() {
         homePage = new HomePage(driver);
         inboxPage = new InboxPage(driver);
-        homePage.clickOnLoginButton().login(User.USER1.getUsername(), User.USER1.getPassword());
+        homePage.clickOnLoginButton().login(User.PROTON_USER);
         Assert.assertTrue(inboxPage.headerIsDisplayed());
     }
 

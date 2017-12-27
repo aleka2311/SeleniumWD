@@ -1,5 +1,6 @@
 package entity.pages;
 
+import entity.business_objects.User;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -17,10 +18,10 @@ public class LoginPage extends AbstractPage {
         super(driver);
     }
 
-    public InboxPage login(String login, String password) {
+    public InboxPage login(User user) {
         waitForVisibilityOfAllElementsLocated(usernameInput);
-        usernameInput.sendKeys(login);
-        passwordInput.sendKeys(password);
+        usernameInput.sendKeys(user.getUsername());
+        passwordInput.sendKeys(user.getPassword());
         loginBtn.click();
         return new InboxPage(getDriver());
     }

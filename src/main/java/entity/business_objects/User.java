@@ -1,16 +1,17 @@
 package entity.business_objects;
 
 public enum User {
-    USER1("arraylist@protonmail.com","test123456");
+    PROTON_USER("arraylist@protonmail.com", "test123456");
 
 
     private final String username;
     private final String password;
 
-    User(String username, String password){
+    User(String username, String password) {
         this.username = username;
         this.password = password;
     }
+
     public String getUsername() {
         return username;
     }
