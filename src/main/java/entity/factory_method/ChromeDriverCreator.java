@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class ChromeDriverCreator extends WebDriverCreator {
     @Override
-    public WebDriver FactoryMethod() {
+    public WebDriver getDriver() {
         ChromeDriverService service = new ChromeDriverService.Builder().usingDriverExecutable(
                 new File("src/main/resources/chromedriver.exe")).build();
         try {

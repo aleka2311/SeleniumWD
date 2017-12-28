@@ -79,5 +79,4 @@ public class CustomWebElementDecorator implements WebElement {
     public <X> X getScreenshotAs(OutputType<X> outputType) throws WebDriverException {
         return webElement.getScreenshotAs(outputType);
     }
-
 }
