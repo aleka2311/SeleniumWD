@@ -32,6 +32,9 @@ public class ProtonTest {
         WebDriverCreator creator = new ChromeDriverCreator();
         WebDriver driver = creator.FactoryMethod();
         driver.navigate().to("https://protonmail.com/");
+         driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            driver.manage().window().maximize();
         */
     }
 
