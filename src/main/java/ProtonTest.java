@@ -2,9 +2,12 @@
 import entity.business_objects.User;
 import entity.exceptions.MailFormedURLException;
 import entity.exceptions.NoSuchMessageException;
+import entity.factory_method.ChromeDriverCreator;
+import entity.factory_method.WebDriverCreator;
 import entity.pages.HomePage;
 import entity.pages.InboxPage;
 import entity.business_objects.Message;
+import entity.singleton.WebDriverSingleton;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
@@ -17,31 +20,25 @@ import java.util.concurrent.TimeUnit;
 
 
 public class ProtonTest {
-    private WebDriver driver;
     private InboxPage inboxPage;
     private HomePage homePage;
     private Logger logger = LogManager.getLogger(InboxPage.class);
 
     @BeforeTest
-    public void openBrowser() throws MailFormedURLException {
-       /*
-        try {
-            driver = new RemoteWebDriver(new URL("http://epkzkarw0218:4444/wd/hub"), DesiredCapabilities.chrome());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }*/
-        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
-        driver = new ChromeDriver();
-        driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
-        driver.get("https://protonmail.com/");
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
+    public void openBrowser() {
+        WebDriverSingleton.getWebDriverInstance().navigate().to("https://protonmail.com/");
+        /*
+        //by factory method
+        WebDriverCreator creator = new ChromeDriverCreator();
+        WebDriver driver = creator.FactoryMethod();
+        driver.navigate().to("https://protonmail.com/");
+        */
     }
 
     @Test
     public void loginMail() {
-        homePage = new HomePage(driver);
-        inboxPage = new InboxPage(driver);
+        homePage = new HomePage(WebDriverSingleton.getWebDriverInstance());
+        inboxPage = new InboxPage(WebDriverSingleton.getWebDriverInstance());
         homePage.clickOnLoginButton().login(User.PROTON_USER);
         Assert.assertTrue(inboxPage.headerIsDisplayed());
     }
@@ -73,7 +70,10 @@ public class ProtonTest {
     @AfterTest
     public void logOffAndQuit() {
         inboxPage.logoff();
+        WebDriverSingleton.getWebDriverInstance().quit();
+        /* by factory_method
         driver.quit();
+         */
     }
 
     @DataProvider
