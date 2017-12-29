@@ -115,6 +115,7 @@ public class InboxPage extends AbstractPage {
         waitForElementToBeClickable(sentMessagePageBtn);
         sentMessagePageBtn.click();
         boolean check = true;
+        waitForListElements(draftsList);
         List<WebElement> list = draftsList;
         for (WebElement draft : list) {
             if (!(sendersName.getText().equals(message.getEmail()) &&

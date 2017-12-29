@@ -1,3 +1,4 @@
-2017-12-27 12:49:41,388 ERROR pages.InboxPage [main] ProtonTest.checkMessageInSent(ProtonTest.java:67) Сообщение отсутсвует
-2017-12-27 15:30:11,355 ERROR pages.InboxPage [main] ProtonTest.checkMessageInSent(ProtonTest.java:70) Сообщение отсутсвует
-2017-12-27 15:31:13,343 ERROR pages.InboxPage [main] ProtonTest.checkMessageInSent(ProtonTest.java:70) Сообщение отсутсвует
+2017-12-27 12:49:41,388 ERROR pages.InboxPage [main] tests.ProtonTest.checkMessageInSent(tests.ProtonTest.java:67) Сообщение отсутсвует
+2017-12-27 15:30:11,355 ERROR pages.InboxPage [main] tests.ProtonTest.checkMessageInSent(tests.ProtonTest.java:70) Сообщение отсутсвует
+2017-12-27 15:31:13,343 ERROR pages.InboxPage [main] tests.ProtonTest.checkMessageInSent(tests.ProtonTest.java:70) Сообщение отсутсвует
+2017-12-29 17:46:56,340 ERROR pages.InboxPage [main] entity.steps.ProtonMessageCreating.check_in_sent(ProtonMessageCreating.java:37) Сообщение отсутсвует

@@ -1,3 +1,4 @@
+package tests;
 
 import entity.business_objects.User;
 import entity.exceptions.MailFormedURLException;
@@ -20,13 +21,17 @@ import java.util.concurrent.TimeUnit;
 
 
 public class ProtonTest {
+    private WebDriver driver= WebDriverSingleton.getWebDriverInstance();
     private InboxPage inboxPage;
     private HomePage homePage;
     private Logger logger = LogManager.getLogger(InboxPage.class);
 
     @BeforeTest
     public void openBrowser() {
-        WebDriverSingleton.getWebDriverInstance().navigate().to("https://protonmail.com/");
+        driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().window().maximize();
+        driver.navigate().to("https://protonmail.com/");
         /*
         //by factory method
         WebDriverCreator creator = new ChromeDriverCreator();
