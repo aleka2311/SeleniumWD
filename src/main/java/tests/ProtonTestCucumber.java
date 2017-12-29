@@ -10,7 +10,7 @@ import org.testng.annotations.BeforeClass;
 
 import java.util.concurrent.TimeUnit;
 
-@CucumberOptions(strict = true, tags = "@smokeTest", features = {"src/main/resources/cucumber_features/ALoginMail.feature","src/main/resources/cucumber_features/BMessageCreate.feature"}, glue = {"entity.steps"})
+@CucumberOptions(strict = true, tags = "@smokeTest", features = {"src/main/resources/cucumber_features/ALoginMail.feature", "src/main/resources/cucumber_features/BMessageCreate.feature"}, glue = {"entity.steps"})
 
 public class ProtonTestCucumber extends AbstractTestNGCucumberTests {
     private static WebDriver driver = WebDriverSingleton.getWebDriverInstance();

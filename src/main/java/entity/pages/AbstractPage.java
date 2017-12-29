@@ -14,8 +14,9 @@ public class AbstractPage {
     private WebDriver driver;
 
     public AbstractPage(WebDriver driver) {
-        this.driver = driver;PageFactory.initElements(this.driver, this);
-          }
+        this.driver = driver;
+        PageFactory.initElements(this.driver, this);
+    }
 
     public WebDriver getDriver() {
         return driver;

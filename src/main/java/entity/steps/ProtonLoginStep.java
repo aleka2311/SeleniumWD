@@ -14,7 +14,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
 public class ProtonLoginStep {
-    private static WebDriver driver= WebDriverSingleton.getWebDriverInstance();
+    private static WebDriver driver = WebDriverSingleton.getWebDriverInstance();
 
     @Given("^user navigates to proton home page$")
     public void navigate_to_login_page() {
@@ -35,7 +35,6 @@ public class ProtonLoginStep {
     public void verify_login_is_completed() {
         Assert.assertTrue(new InboxPage(driver).headerIsDisplayed());
     }
-
 
 
 }

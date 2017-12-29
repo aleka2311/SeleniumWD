@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 public class WebDriverSingleton {
     private static WebDriver driver;
 
-       private WebDriverSingleton() {
+    private WebDriverSingleton() {
     }
 
     public static WebDriver getWebDriverInstance() {
