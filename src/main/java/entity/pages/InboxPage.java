@@ -118,17 +118,15 @@ public class InboxPage extends AbstractPage {
         waitForListElements(draftsList);
         List<WebElement> list = draftsList;
         for (WebElement draft : list) {
-            if (!(sendersName.getText().equals(message.getEmail()) &&
-                    subjectText.getText().equals(message.getSubject()))) {
+            if (sendersName.getText().equals(message.getEmail()) && subjectText.getText().equals(message.getSubject())) {
                 check = true;
-                break;
             } else {
                 throw new NoSuchMessageException();
             }
         }
         return check;
     }
-
+/*
     public void dragAndDrop() {
         waitForElementToBeClickable(droppableMenu);
         droppableMenu.click();
@@ -137,7 +135,7 @@ public class InboxPage extends AbstractPage {
         Actions make = new Actions(getDriver());
         Action kbEvents = make.dragAndDrop(draggable, droppable).build();
         kbEvents.perform();
-    }
+    }*/
 
     public void logoff() {
         userTrigger.click();
