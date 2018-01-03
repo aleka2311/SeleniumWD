@@ -4,7 +4,6 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import entity.business_objects.Message;
 import entity.business_objects.User;
 import entity.pages.HomePage;
 import entity.pages.InboxPage;

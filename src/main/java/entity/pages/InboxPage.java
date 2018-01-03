@@ -32,7 +32,6 @@ public class InboxPage extends AbstractPage {
     private WebElement closeMessageBtn;
     @FindBy(xpath = "//span[text() = 'Черновики']")
     private WebElement draftsBtn;
-    //  @FindBy(xpath = "//*[@ng-repeat = 'conversation in conversations track by conversation.ID']")
     @FindBy(xpath = "//*[@draggable='true']")
     private List<WebElement> draftsList;
     @FindBy(xpath = "//*[@class = 'senders-name']")
@@ -55,13 +54,10 @@ public class InboxPage extends AbstractPage {
     private WebElement archive;
     @FindBy(xpath = "//a[text()='Droppable']")
     private WebElement droppableMenu;
-
     @FindBy(xpath = "//*[@class='demo-frame']")
     private WebElement droppFrame;
-
     @FindBy(xpath = "//*[@id='draggable']")
     private WebElement draggable;
-
     @FindBy(xpath = "//*[@id='droppable']")
     private WebElement droppable;
 
@@ -126,21 +122,10 @@ public class InboxPage extends AbstractPage {
         }
         return check;
     }
-/*
-    public void dragAndDrop() {
-        waitForElementToBeClickable(droppableMenu);
-        droppableMenu.click();
-        waitForVisibilityOfAllElementsLocated(droppFrame);
-        getDriver().switchTo().frame(droppFrame);
-        Actions make = new Actions(getDriver());
-        Action kbEvents = make.dragAndDrop(draggable, droppable).build();
-        kbEvents.perform();
-    }*/
 
     public void logoff() {
         userTrigger.click();
         logoffBtn.click();
     }
-
 
 }

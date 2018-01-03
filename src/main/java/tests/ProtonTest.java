@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 
 
 public class ProtonTest {
-    private WebDriver driver= WebDriverSingleton.getWebDriverInstance();
+    private WebDriver driver = WebDriverSingleton.getWebDriverInstance();
     private InboxPage inboxPage;
     private HomePage homePage;
     private Logger logger = LogManager.getLogger(InboxPage.class);
@@ -32,15 +32,6 @@ public class ProtonTest {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         driver.navigate().to("https://protonmail.com/");
-        /*
-        //by factory method
-        WebDriverCreator creator = new ChromeDriverCreator();
-        WebDriver driver = creator.FactoryMethod();
-        driver.navigate().to("https://protonmail.com/");
-         driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
-            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-            driver.manage().window().maximize();
-        */
     }
 
     @Test
@@ -79,9 +70,6 @@ public class ProtonTest {
     public void logOffAndQuit() {
         inboxPage.logoff();
         WebDriverSingleton.getWebDriverInstance().quit();
-        /* by factory_method
-        driver.quit();
-         */
     }
 
     @DataProvider
