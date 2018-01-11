@@ -10,11 +10,11 @@ import entity.pages.HomePage;
 import entity.pages.InboxPage;
 import entity.pages.LoginPage;
 import entity.singleton.WebDriverSingleton;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import tests.ProtonTest;
+
 
 public class ProtonLoginStep {
     private static WebDriver driver = WebDriverSingleton.getWebDriverInstance();

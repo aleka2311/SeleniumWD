@@ -1,20 +1,15 @@
 package tests;
 
 import entity.business_objects.User;
-import entity.exceptions.MailFormedURLException;
 import entity.exceptions.NoSuchElement;
 import entity.exceptions.NoSuchMessageException;
-import entity.factory_method.ChromeDriverCreator;
-import entity.factory_method.WebDriverCreator;
 import entity.pages.HomePage;
 import entity.pages.InboxPage;
 import entity.business_objects.Message;
 import entity.singleton.WebDriverSingleton;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
