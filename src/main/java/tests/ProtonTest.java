@@ -2,6 +2,7 @@ package tests;
 
 import entity.business_objects.User;
 import entity.exceptions.MailFormedURLException;
+import entity.exceptions.NoSuchElement;
 import entity.exceptions.NoSuchMessageException;
 import entity.factory_method.ChromeDriverCreator;
 import entity.factory_method.WebDriverCreator;
@@ -24,21 +25,28 @@ public class ProtonTest {
     private WebDriver driver = WebDriverSingleton.getWebDriverInstance();
     private InboxPage inboxPage;
     private HomePage homePage;
-    private Logger logger = LogManager.getLogger(InboxPage.class);
+    private Logger logger = LogManager.getLogger(ProtonTest.class);
 
     @BeforeTest
     public void openBrowser() {
         driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
-        driver.navigate().to("https://protonmail.com/");
+        String url = "https://protonmail.com/";
+        driver.navigate().to(url);
+        logger.info("Going to URL: " + url);
     }
 
     @Test
-    public void loginMail() {
+    public void loginMail() throws NoSuchElement {
         homePage = new HomePage(WebDriverSingleton.getWebDriverInstance());
         inboxPage = new InboxPage(WebDriverSingleton.getWebDriverInstance());
         homePage.clickOnLoginButton().login(User.PROTON_USER);
+        try {
+            inboxPage.headerIsDisplayed();
+        } catch (NoSuchElement e) {
+            logger.error("Element is not present.");
+        }
         Assert.assertTrue(inboxPage.headerIsDisplayed());
     }
 
@@ -57,12 +65,13 @@ public class ProtonTest {
     }
 
     @Test(dependsOnMethods = {"sendMessageFromDrafts"}, dataProvider = "testDataForMessage")
-    public void checkMessageInSent(Message message) {
+    public void checkMessageInSent(Message message) throws NoSuchMessageException {
         try {
-            Assert.assertTrue(inboxPage.checkLetterInSent(message));
+            inboxPage.checkLetterInSent(message);
         } catch (NoSuchMessageException e) {
             logger.error("Сообщение отсутсвует");
         }
+        Assert.assertTrue(inboxPage.checkLetterInSent(message));
     }
 
 

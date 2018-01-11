@@ -49,6 +49,32 @@
             <artifactId>httpclient</artifactId>
             <version>4.5.4</version>
         </dependency>
-
+        <dependency>
+            <groupId>io.appium</groupId>
+            <artifactId>java-client</artifactId>
+            <version>5.0.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations-java5</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.uncommons</groupId>
+            <artifactId>reportng</artifactId>
+            <version>1.1.4</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity</artifactId>
+            <version>1.7</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.inject</groupId>
+            <artifactId>guice</artifactId>
+            <version>4.1.0</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>
