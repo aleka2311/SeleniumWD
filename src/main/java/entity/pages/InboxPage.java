@@ -71,7 +71,7 @@ public class InboxPage extends AbstractPage {
         boolean succeed = inboxHeader.isDisplayed();
         if (succeed) {
             highlightElement(inboxHeader);
-            logger.info("Element " + inboxHeader.getText() + " is present.");
+            logger.info("Successful authentication ");
             unHighlightElement(inboxHeader);
         } else {
             takeScreenshot();
@@ -81,20 +81,10 @@ public class InboxPage extends AbstractPage {
     }
 
     public void createNewMessage(Message message) {
-        waitForElementToBeClickable(composeBtn);
-        highlightElement(composeBtn);
-        logger.info("Clicking element '" + composeBtn.getText() + "' (Located: " + composeBtn.getTagName() + ")");
-        unHighlightElement(composeBtn);
-        composeBtn.click();
+        clickBtn(composeBtn);
         waitForVisibilityOfAllElementsLocated(subjectInput);
-        highlightElement(recipientInput);
-        logger.info("Typing text '" + message.getEmail() + "' to input form '" + recipientInput.getAttribute("name") + "' (Located: " + recipientInput.getTagName() + ")");
-        recipientInput.sendKeys(message.getEmail());
-        unHighlightElement(recipientInput);
-        highlightElement(subjectInput);
-        logger.info("Typing text '" + message.getSubject() + "' to input form '" + subjectInput.getAttribute("name") + "' (Located: " + subjectInput.getTagName() + ")");
-        subjectInput.sendKeys(message.getSubject());
-        unHighlightElement(subjectInput);
+        sendkeys(recipientInput, message.getEmail());
+        sendkeys(subjectInput, message.getSubject());
         getDriver().switchTo().frame(textBoxFrame);
         waitForElementToBeClickable(textBox);
         textBox.click();
@@ -103,39 +93,20 @@ public class InboxPage extends AbstractPage {
         Action kbEvents = make.sendKeys(message.getTextContent()).build();
         kbEvents.perform();
         getDriver().switchTo().defaultContent();
-        waitForElementToBeClickable(saveBtn);
-        highlightElement(saveBtn);
-        logger.info("Clicking element '" + saveBtn.getText() + "' (Located: " + saveBtn.getTagName() + ")");
-        unHighlightElement(saveBtn);
         saveBtn.click();
         waitForVisibilityOfAllElementsLocated(messagePopUp);
-        waitForElementToBeClickable(closeMessageBtn);
-        highlightElement(closeMessageBtn);
-        logger.info("Clicking element '" + closeMessageBtn.getText() + "' (Located: " + closeMessageBtn.getTagName() + ")");
-        unHighlightElement(closeMessageBtn);
         closeMessageBtn.click();
     }
 
     public void sendMessageFromDrafts(Message message) throws NoSuchMessageException {
-        waitForElementToBeClickable(draftsBtn);
-        highlightElement(draftsBtn);
-        logger.info("Clicking element '" + draftsBtn.getText() + "' (Located: " + draftsBtn.getTagName() + ")");
-        unHighlightElement(draftsBtn);
-        draftsBtn.click();
+        clickBtn(draftsBtn);
         waitForListElements(draftsList);
         List<WebElement> list = draftsList;
         for (WebElement webElement : list) {
             waitForElementToBeClickable(webElement);
             if (sendersName.getText().equals(message.getEmail()) && subjectText.getText().equals(message.getSubject())) {
-                highlightElement(webElement);
-                logger.info("Clicking element '" + webElement.getText() + "' (Located: " + webElement.getTagName() + ")");
-                unHighlightElement(webElement);
-                webElement.click();
-                waitForElementToBeClickable(sendBtn);
-                highlightElement(sendBtn);
-                logger.info("Clicking element '" + sendBtn.getText() + "' (Located: " + sendBtn.getTagName() + ")");
-                unHighlightElement(sendBtn);
-                sendBtn.click();
+                clickBtn(webElement);
+                clickBtn(sendBtn);
                 waitForVisibilityOfAllElementsLocated(messagePopUp);
                 break;
             } else {
@@ -146,11 +117,7 @@ public class InboxPage extends AbstractPage {
     }
 
     public boolean checkLetterInSent(Message message) throws NoSuchMessageException {
-        waitForElementToBeClickable(sentMessagePageBtn);
-        highlightElement(sentMessagePageBtn);
-        logger.info("Clicking element '" + sentMessagePageBtn.getText() + "' (Located: " + sentMessagePageBtn.getTagName() + ")");
-        unHighlightElement(sentMessagePageBtn);
-        sentMessagePageBtn.click();
+        clickBtn(sentMessagePageBtn);
         boolean check = true;
         waitForListElements(draftsList);
         List<WebElement> list = draftsList;

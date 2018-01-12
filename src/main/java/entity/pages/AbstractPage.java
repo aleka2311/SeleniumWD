@@ -62,6 +62,21 @@ public class AbstractPage {
     public void unHighlightElement(WebElement webElement) {
         ((JavascriptExecutor) driver).executeScript("arguments[0].style.border='0px'", webElement);
     }
+
+    public void clickBtn(WebElement webElement) {
+        waitForElementToBeClickable(webElement);
+        highlightElement(webElement);
+        logger.info("Clicking element '" + webElement.getText());
+        unHighlightElement(webElement);
+        webElement.click();
+    }
+
+    public void sendkeys(WebElement webElement, String s) {
+        highlightElement(webElement);
+        logger.info("Typing text '" + s + "' to input form '" + webElement.getAttribute("name"));
+        webElement.sendKeys(s);
+        unHighlightElement(webElement);
+    }
 }
 
 

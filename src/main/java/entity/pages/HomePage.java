@@ -8,7 +8,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class HomePage extends AbstractPage {
-    private Logger logger = LogManager.getLogger(HomePage.class);
     @FindBy(xpath = "//a[text() = 'LOG IN']")
     private WebElement loginButton;
 
@@ -18,11 +17,7 @@ public class HomePage extends AbstractPage {
     }
 
     public LoginPage clickOnLoginButton() {
-        waitForElementToBeClickable(loginButton);
-        highlightElement(loginButton);
-        logger.info("Clicking element '" + loginButton.getText() + "' (Located: " + loginButton.getTagName() + ")");
-        unHighlightElement(loginButton);
-        new CustomWebElementDecorator(loginButton).click();
+        clickBtn(loginButton);
         return new LoginPage(getDriver());
     }
 }

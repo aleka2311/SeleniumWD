@@ -42,7 +42,6 @@ public class ProtonTest {
         } catch (NoSuchElement e) {
             logger.error("Element is not present.");
         }
-        Assert.assertTrue(inboxPage.headerIsDisplayed());
     }
 
     @Test(dependsOnMethods = {"loginMail"}, dataProvider = "testDataForMessage")
@@ -66,7 +65,6 @@ public class ProtonTest {
         } catch (NoSuchMessageException e) {
             logger.error("Сообщение отсутсвует");
         }
-        Assert.assertTrue(inboxPage.checkLetterInSent(message));
     }
 
 
