@@ -1,7 +1,7 @@
 package entity.business_objects;
 
 public enum User {
-    PROTON_USER("arraylist@protonmail.com", "test123456");
+    PROTON_USER("kstu_aray@protonmail.com", "test123456");
 
 
     private final String username;

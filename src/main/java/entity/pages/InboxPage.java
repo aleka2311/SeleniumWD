@@ -1,8 +1,8 @@
 package entity.pages;
 
+import entity.business_objects.Message;
 import entity.exceptions.NoSuchElement;
 import entity.exceptions.NoSuchMessageException;
-import entity.business_objects.Message;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
@@ -15,59 +15,50 @@ import java.util.List;
 
 public class InboxPage extends AbstractPage {
     private Logger logger = LogManager.getLogger(InboxPage.class);
-    @FindBy(xpath = "//*[@class='headerSecuredDesktop-container']")
+    @FindBy(xpath = "//div[@class='headerSecuredDesktop-container']")
     private WebElement inboxHeader;
-    @FindBy(css = ".compose.pm_button.sidebar-btn-compose")
+    @FindBy(xpath = "//button[text() = 'Compose']")
     private WebElement composeBtn;
-    @FindBy(xpath = "//input[@ng-model='message.Subject']")
+    @FindBy(xpath = "//input[@title = 'Subject']")
     private WebElement subjectInput;
-    @FindBy(xpath = "//input[@id='autocomplete']")
+    @FindBy(xpath = "//div[@data-label = 'To']//input[@class = 'autocompleteEmails-input']")
     private WebElement recipientInput;
     @FindBy(xpath = "//iframe[@class = 'squireIframe']")
     private WebElement textBoxFrame;
     @FindBy(xpath = "//*[@class='protonmail_signature_block']/preceding-sibling::div[2]")
     private WebElement textBox;
-    @FindBy(xpath = "//*[@aria-label='Сохранить']")
+    @FindBy(xpath = "//button[@data-original-title = 'Save']")
     private WebElement saveBtn;
-    @FindBy(xpath = "//*[@data-original-title = 'Закрыть']")
+    @FindBy(xpath = "//button[@data-original-title = 'Close']")
     private WebElement closeMessageBtn;
-    @FindBy(xpath = "//span[text() = 'Черновики']")
+    @FindBy(xpath = "//a[@title = 'Drafts']")
     private WebElement draftsBtn;
-    @FindBy(xpath = "//*[@draggable='true']")
+    @FindBy(xpath = "//div[contains(@class , 'conversation read')]")
     private List<WebElement> draftsList;
-    @FindBy(xpath = "//*[@class = 'senders-name']")
+    @FindBy(xpath = "//span[@class = 'senders-name']")
     private WebElement sendersName;
-    @FindBy(xpath = "//*[@class = 'subject-text ellipsis']")
+    @FindBy(xpath = "//span[@class = 'subject-text ellipsis']")
     private WebElement subjectText;
-    @FindBy(xpath = "//*[text()='Отправить']")
+    @FindBy(xpath = "//button[contains(text(), 'Send')]")
     private WebElement sendBtn;
     @FindBy(xpath = "//span[@ng-bind-html = '$message']")
     private WebElement messagePopUp;
-    @FindBy(xpath = "//*[@href='/sent']")
+    @FindBy(xpath = "//a[@title= 'Sent']")
     private WebElement sentMessagePageBtn;
-    @FindBy(xpath = "//*[@class='navigation-link navigationUser-link pm_trigger']")
+    @FindBy(xpath = "//a[@class='navigation-link navigationUser-link pm_trigger']")
     private WebElement userTrigger;
-    @FindBy(xpath = " //*[@ui-sref='login']")
+    @FindBy(xpath = " //a[@ui-sref='login']")
     private WebElement logoffBtn;
-    @FindBy(xpath = "//span[text()='Входящие']")
-    private WebElement incoming;
-    @FindBy(xpath = "//*[@data-pt-dropzone-item='archive']")
-    private WebElement archive;
-    @FindBy(xpath = "//a[text()='Droppable']")
-    private WebElement droppableMenu;
-    @FindBy(xpath = "//*[@class='demo-frame']")
-    private WebElement droppFrame;
-    @FindBy(xpath = "//*[@id='draggable']")
-    private WebElement draggable;
-    @FindBy(xpath = "//*[@id='droppable']")
-    private WebElement droppable;
+    @FindBy(xpath = "//div[@ng-if='message.ID']")
+    private WebElement messageWindow;
+
 
     public InboxPage(WebDriver driver) {
         super(driver);
     }
 
     public Boolean headerIsDisplayed() throws NoSuchElement {
-        waitForVisibilityOfAllElementsLocated(inboxHeader);
+        waitForVisibilityOfElement(inboxHeader);
         boolean succeed = inboxHeader.isDisplayed();
         if (succeed) {
             highlightElement(inboxHeader);
@@ -82,7 +73,7 @@ public class InboxPage extends AbstractPage {
 
     public void createNewMessage(Message message) {
         clickBtn(composeBtn);
-        waitForVisibilityOfAllElementsLocated(subjectInput);
+        waitForVisibilityOfElement(subjectInput);
         sendkeys(recipientInput, message.getEmail());
         sendkeys(subjectInput, message.getSubject());
         getDriver().switchTo().frame(textBoxFrame);
@@ -94,20 +85,20 @@ public class InboxPage extends AbstractPage {
         kbEvents.perform();
         getDriver().switchTo().defaultContent();
         saveBtn.click();
-        waitForVisibilityOfAllElementsLocated(messagePopUp);
+        waitForVisibilityOfElement(messagePopUp);
         closeMessageBtn.click();
     }
 
     public void sendMessageFromDrafts(Message message) throws NoSuchMessageException {
         clickBtn(draftsBtn);
         waitForListElements(draftsList);
-        List<WebElement> list = draftsList;
-        for (WebElement webElement : list) {
-            waitForElementToBeClickable(webElement);
+        for (WebElement draft : draftsList) {
+            waitForElementToBeClickable(draft);
             if (sendersName.getText().equals(message.getEmail()) && subjectText.getText().equals(message.getSubject())) {
-                clickBtn(webElement);
+                waitForElementToBeClickable(draft);
+                clickOnElementViaActions(draft);
                 clickBtn(sendBtn);
-                waitForVisibilityOfAllElementsLocated(messagePopUp);
+                waitForVisibilityOfElement(messagePopUp);
                 break;
             } else {
                 takeScreenshot();

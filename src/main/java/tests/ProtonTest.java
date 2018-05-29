@@ -1,17 +1,19 @@
 package tests;
 
+import entity.business_objects.Message;
 import entity.business_objects.User;
 import entity.exceptions.NoSuchElement;
 import entity.exceptions.NoSuchMessageException;
 import entity.pages.HomePage;
 import entity.pages.InboxPage;
-import entity.business_objects.Message;
 import entity.singleton.WebDriverSingleton;
-import org.openqa.selenium.WebDriver;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.testng.Assert;
-import org.testng.annotations.*;
+import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 

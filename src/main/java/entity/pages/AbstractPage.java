@@ -4,8 +4,8 @@ import org.apache.commons.io.FileUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
-
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -18,6 +18,7 @@ public class AbstractPage {
     private WebDriver driver;
     private Logger logger = LogManager.getLogger(InboxPage.class);
 
+
     public AbstractPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(this.driver, this);
@@ -29,17 +30,17 @@ public class AbstractPage {
 
 
     public void waitForElementToBeClickable(WebElement webElement) {
-        WebDriverWait webDriverWait = new WebDriverWait(driver, 30);
+        WebDriverWait webDriverWait = new WebDriverWait(getDriver(), 30);
         webDriverWait.until(ExpectedConditions.elementToBeClickable(webElement));
     }
 
-    public void waitForVisibilityOfAllElementsLocated(WebElement webElement) {
-        WebDriverWait webDriverWait = new WebDriverWait(driver, 30);
+    public void waitForVisibilityOfElement(WebElement webElement) {
+        WebDriverWait webDriverWait = new WebDriverWait(getDriver(), 30);
         webDriverWait.until(ExpectedConditions.visibilityOf(webElement));
     }
 
     public void waitForListElements(List<WebElement> webElements) {
-        WebDriverWait webDriverWait = new WebDriverWait(driver, 30);
+        WebDriverWait webDriverWait = new WebDriverWait(getDriver(), 30);
         webDriverWait.until(ExpectedConditions.visibilityOfAllElements(webElements));
     }
 
@@ -69,6 +70,12 @@ public class AbstractPage {
         logger.info("Clicking element '" + webElement.getText());
         unHighlightElement(webElement);
         webElement.click();
+    }
+
+    public WebElement clickOnElementViaActions(WebElement webElement) {
+        logger.debug("Clicking on element via actions");
+        new Actions(getDriver()).click(webElement).build().perform();
+        return webElement;
     }
 
     public void sendkeys(WebElement webElement, String s) {
